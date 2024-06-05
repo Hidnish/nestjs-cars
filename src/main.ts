@@ -12,3 +12,11 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
+
+/*
+  ENITRE FLOW - request -> DB
+  1. Request -> Validation pipe: pipe uses DTO to validate body
+  2. Validation pipe -> Controller: selects relavant info passed by pipe and defines the route
+  3. Controller -> Service: takes the info from controller and defines an entity based on it
+  4. Service -> Repository: takes entity and saves it to DB (its our interface to the SQLlite DB)
+*/
