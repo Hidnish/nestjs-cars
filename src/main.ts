@@ -1,9 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+const cookieSession = require('cookie-session'); // due to mismatch between nest configs and cookie-session library
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.use(cookieSession({
+    keys: ['uDeiA2h34h3J2h9sK']
+  }));
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true // -> automatically removes the fields from the request bodies that are not specified in the DTO

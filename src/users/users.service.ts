@@ -20,6 +20,7 @@ export class UsersService {
   }
 
   findOne(id: number) {
+    if (!id) return null; // make sure to return null, otherwise SQLite will return first record from DB
     return this.repo.findOneBy({ id }); // returns one record, if no records returns null
   }
 

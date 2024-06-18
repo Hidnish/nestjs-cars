@@ -12,7 +12,10 @@ interface ClassConstructor<T> {
   new (...args: any[]): T
 }
 
-export function Serialize<T extends object>(dto: ClassConstructor<T>) { // custom decorator to format outgoing responses
+/**
+ * Custom decorator to format outgoing responses
+ */
+export function Serialize<T extends object>(dto: ClassConstructor<T>) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
 
