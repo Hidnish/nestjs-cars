@@ -27,7 +27,13 @@ describe('UsersController', () => {
         } as User])
       }, 
       // remove: () => {},
-      // update: () => {}
+      update: (id: number, attrs: Partial<User>) => {
+        return Promise.resolve({
+          id, 
+          email: attrs.email ?? 'test@test.com',
+          password: attrs.password ?? 'asdf'
+        } as User)
+      }
     };
 
     fakeAuthService = {
@@ -86,5 +92,14 @@ describe('UsersController', () => {
 
     expect(user.id).toEqual(1);
     expect(session.userId).toEqual(1);
+  })
+
+  it('updateUser returns a single user with updated values', async () => {
+    const user = await controller.updateUser(
+      '1', 
+      { email: 'hello@example.com', password: 'asdf' } // cannot use decorator @IsOptional
+    )
+
+    expect(user.email).toEqual('hello@example.com');
   })
 });
