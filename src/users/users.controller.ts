@@ -55,6 +55,7 @@ export class UsersController {
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signup(body.email, body.password);
     session.userId = user.id;
+    session.email = user.email;
     return user;
   }
 
@@ -62,6 +63,7 @@ export class UsersController {
   async signin(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signin(body.email, body.password);
     session.userId = user.id;
+    session.email = user.email;
     return user;
   }
 
