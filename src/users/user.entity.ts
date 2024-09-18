@@ -4,8 +4,10 @@ import {
   AfterUpdate, 
   Entity, 
   Column, 
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  OneToMany
 } from 'typeorm';
+import { Report } from 'src/reports/report.entity';
 // import { Exclude } from 'class-transformer';
 
 // model that defines the structure and functionality + relation with other entities
@@ -20,6 +22,12 @@ export class User {
   @Column()
   // @Exclude() // -> when you take an instance of a user, turn it into object and then json, exclude the password prop
   password: string;
+
+  @OneToMany( // OneToMany does not change the user table, but allows for a foreign key in the Report table
+    () => Report, // () => solution for circular dependency with Report entity, one is executed before the other
+    (report) => report.user // takes an instance of the entity Report, and tells how to get back to User from there
+  )
+  reports: Report[];
 
   @AfterInsert() // -> example of hook
   logInsert() {

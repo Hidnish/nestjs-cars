@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 import { plainToClass } from 'class-transformer';
 
 interface ClassConstructor<T> {
-  new (...args: any[]): T
+  new (...args: any[]): T // A constructor signature indicating that the class can be instantiated with any number of arguments, returning an instance of type T
 }
 
 /**
@@ -19,7 +19,7 @@ export function Serialize<T extends object>(dto: ClassConstructor<T>) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
 
-export class SerializeInterceptor<T extends object> implements NestInterceptor<T, T> { // implements -> class has to satisfy all the requirements of an abstract class or interface
+export class SerializeInterceptor<T extends object> implements NestInterceptor<T, T> { // implements -> class has to satisfy all the requirements of an abstract class or interface, <T -> input, T -> output>
   constructor(private dto: ClassConstructor<T>) {}
 
   intercept(context: ExecutionContext, handler: CallHandler<T>): Observable<T> {
