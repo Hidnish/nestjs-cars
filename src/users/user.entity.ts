@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany
 } from 'typeorm';
-import { Report } from 'src/reports/report.entity';
+import { Report } from '../reports/report.entity';
 // import { Exclude } from 'class-transformer';
 
 // model that defines the structure and functionality + relation with other entities
